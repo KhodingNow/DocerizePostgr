@@ -1,20 +1,18 @@
-version: '3.1'
+version: '3.1'  # You can adjust the version as needed
 
 services:
   postgresdb:
-    build: .
+    build:
+      context: .
     container_name: postgres-container
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data # Persistent data storage
+      - postgres-data:/var/lib/postgresql/data  # Mounting the volume here
     environment:
       POSTGRES_USER: superuser
       POSTGRES_PASSWORD: superpassword
       POSTGRES_DB: mydatabase
     ports:
-      - "5432:5432" # Map port 5432 from container to host
-    networks:
-      - postgres-net
+      - "5432:5432"
 
-networks:
-  postgres-net:
-    external: true
+volumes:
+  postgres-data:  # Defining the volume
